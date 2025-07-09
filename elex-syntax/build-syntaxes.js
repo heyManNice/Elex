@@ -1,3 +1,4 @@
+const { match } = require("assert");
 const fs = require("fs");
 const syntaxes = {
     name: "Elex",
@@ -16,7 +17,7 @@ const syntaxes = {
         // 匹配关键字
         {
             name: "keyword.control.elex",
-            match: "\\b(break|case|catch|class|const|continue|debugger|default|delete|do|else|export|extends|finally|for|function|if|import|in|instanceof|let|new|null|return|super|switch|this|throw|try|typeof|undefined|var|void|while|with|yield)\\b"
+            match: "import|from|function|&|#|@|\\[|\\]"
         },
         // 匹配字符串
         {
@@ -63,26 +64,45 @@ const syntaxes = {
         // 匹配数字
         {
             name: "constant.numeric.elex",
-            match: "\\b(0[xX][0-9a-fA-F]+|0[oO][0-7]+|0[bB][01]+|\\d*\\.?\\d+([eE][+-]?\\d+)?)\\b"
+            match: "[0-9]+"
         },
         // 匹配布尔值和 null
         {
             name: "constant.language.elex",
-            match: "\\b(true|false|null)\\b"
+            match: "(true|false|null)"
         },
-        // 匹配正则表达式
+        //匹配函数
         {
-            name: "string.regexp.elex",
-            begin: "/(?![\\s\\*])",
-            end: "/[gimyu]*",
-            patterns: [
-                {
-                    name: "constant.character.escape.elex",
-                    match: "\\\\."
-                }
-            ]
+            name: "entity.name.function.elex",
+            // 仅匹配函数名，使用正向预查确保后面有左括号
+            match: "[a-zA-Z_][a-zA-Z0-9_]*(?=\\()"
+        },
+        //匹配变量名
+        {
+            name: "variable.other.elex",
+            // 匹配 # 或 & 后紧跟的合法变量名，不包含 # 和 &
+            match: "(?<=#|&)[a-zA-Z_][a-zA-Z0-9_]*"
+        },
+        {
+            name: "entity.name.tag.html",
+            // 匹配 < 开头，> 结尾，中间包含任意字符的标签
+            match: "<.+? |<.+?>|>"
+        },
+        {
+            name: "entity.name.function.elex",
+            match: "[a-zA-Z_][a-zA-Z0-9_]*:"
+        },
+        //占位符
+        {
+            name: "constant.other.placeholder.elex",
+            match: "%[ds]"
+        },
+        //匹配括号
+        {
+            name: "punctuation.definition.bracket.elex",
+            match: "\\(|\\)"
         }
     ]
 };
 
-fs.writeFileSync("syntaxes/elex.tmLanguage.json",JSON.stringify(syntaxes));
+fs.writeFileSync("syntaxes/elex.tmLanguage.json", JSON.stringify(syntaxes));
