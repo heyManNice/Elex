@@ -1,8 +1,5 @@
 //vite插件，处理.elex文件
 export function elex() {
-    function _transform(code,id){
-        
-    }
     return {
         name: 'elex',
         enforce: 'pre',
@@ -12,5 +9,18 @@ export function elex() {
             }
             return _transform(code,id);
         }
+    }
+}
+
+function _transform(code,id){
+    if(id.endsWith('main.elex')){
+        return {
+            code: `<script>window.addEventListener('load',()=>{alert('ok')})</script>`,
+            map: null
+        }
+    }
+    return {
+        code: code,
+        map: null
     }
 }
