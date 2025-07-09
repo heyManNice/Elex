@@ -1,0 +1,22 @@
+import * from 'elex'
+
+function handleClick(event){
+    #count.fmt(#count[0]+1);
+    &template.emit('Click',{msg:#count});
+    &for@range(&count[0])
+}
+
+function onLoad(msg,name){
+    &h1.fmt(msg,name)
+}
+
+<template onLoad:>
+    <div>
+        <h1 m-2 font-2>%s %s['mike']!</h1>
+        <p #count font-red>The counter is %d[0]</p> 
+        <button onClick:handleClick>+1</button>
+        <for (key,value)@range([10])>
+            <p>item：[value]</p>
+        </for>
+    </div>
+</template>
