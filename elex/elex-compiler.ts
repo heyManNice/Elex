@@ -25,6 +25,7 @@ export function elexCompiler(): Plugin {
             }
 
             const outDir = options.dir || 'dist';
+            const scriptId = randomString(8);
             const htmlContent = `
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -33,7 +34,7 @@ export function elexCompiler(): Plugin {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<script>${js}</script>
+<script id="${scriptId}">(function(){${js}})();${scriptId}.remove();</script>
 </body>
 </html>
       `.trim();
@@ -59,4 +60,15 @@ function _transform(code, id) {
         code: code,
         map: null
     }
+}
+
+function randomString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters.charAt(randomIndex);
+    }
+    return result;
 }
