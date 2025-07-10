@@ -1,4 +1,4 @@
-import * from 'elex'
+import elex from '@elex'
 
 function handleClick(event){
     #count.fmt(#count[0]+1);

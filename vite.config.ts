@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
-import { elex } from './elex/elex';
+import { elexCompiler } from './elex/elex-compiler';
 
 export default defineConfig({
     plugins: [
-        elex()
+        elexCompiler()
     ],
     server: {
         open: 'main.elex'
@@ -12,6 +12,11 @@ export default defineConfig({
         outDir: 'dist',
         rollupOptions:{
             input: 'main.elex',
+        }
+    },
+    resolve:{
+        alias:{
+            '@elex':'elex/elex.ts'
         }
     }
 });
