@@ -7,7 +7,20 @@ export function elexCompiler(): Plugin {
     return {
         name: 'elex',
         enforce: 'pre',
+        configResolved(config) {
+            console.log('[Elex] Config resolved. Mode:', config.mode);
+            config.resolve.extensions.push('.elex');
+        },
+        configureServer(server) {
+            server.middlewares.use((req, res, next) => {
+                res.setHeader('content-type','text/html')
+                res.end('<h1>test</h1>');
+                //next();
+            })
+        },
         transform(code, id) {
+            console.log(123);
+
             if (!id.endsWith('.elex')) {
                 return { code };
             }

@@ -6,12 +6,12 @@ export default defineConfig({
         elexCompiler()
     ],
     server: {
-        open: 'main.elex'
+        open: 'demo/main.elex'
     },
     build: {
         outDir: 'dist',
         rollupOptions:{
-            input: 'main.elex',
+            input: 'demo/main.elex',
         }
     },
     resolve:{
