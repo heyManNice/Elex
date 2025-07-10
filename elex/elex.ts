@@ -33,8 +33,8 @@ export function elex(): Plugin {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-</body>
 <script>${js}</script>
+</body>
 </html>
       `.trim();
             const htmlFilePath = path.join(outDir, 'index.html');
@@ -51,7 +51,7 @@ export function elex(): Plugin {
 function _transform(code, id) {
     if (id.endsWith('main.elex')) {
         return {
-            code: `window.addEventListener('load',()=>{alert('ok')})`,
+            code: `import sayHello from './elex/hello';console.log(sayHello)`,
             map: null
         }
     }
