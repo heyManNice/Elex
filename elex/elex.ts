@@ -39,7 +39,7 @@ export function elex(): Plugin {
       `.trim();
             const htmlFilePath = path.join(outDir, 'index.html');
             fs.writeFileSync(htmlFilePath, htmlContent);
-            console.log(`Generated ${htmlFilePath}`);
+            console.log(`\nGenerated ${htmlFilePath}`);
             Object.keys(outputBundle).forEach(key => {
                 delete outputBundle[key];
             });
